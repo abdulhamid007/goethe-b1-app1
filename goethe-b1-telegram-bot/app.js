@@ -78,7 +78,7 @@ function showToast(msg, icon = "ℹ️") {
 }
 
 // =========================================================================
-// TELEFON VA TELEGRAM MINI APP UCHUN 100% ISHLAYDIGAN NEMISCHA AUDIO (TTS)
+// TELEFON VA TELEGRAM MINI APP UCHUN RENDER SERVER ORQALI NEMISCHA AUDIO (TTS)
 // =========================================================================
 window._currentAudioPlayer = null;
 
@@ -107,7 +107,7 @@ function speakGerman(text, rate = 0.95, pitch = 1.0) {
     index++;
 
     const encoded = encodeURIComponent(chunk);
-    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=de&client=tw-ob&q=${encoded}`;
+    const ttsUrl = `https://goethe-b1-app1.onrender.com/api/tts?q=${encoded}`;
 
     const audio = new Audio(ttsUrl);
     audio.playbackRate = rate;
@@ -131,7 +131,7 @@ function speakGerman(text, rate = 0.95, pitch = 1.0) {
 
 function fallbackBrowserTTS(text, rate, pitch, onEndCallback) {
   if (!("speechSynthesis" in window)) {
-    showToast("Telefoningizda ovozli o'qish qo'llab-quvvatlanmaydi.", "⚠️");
+    showToast("Ovoz yuklanmadi. Render server uyg'onishini 30 soniya kutib qayta bosing.", "⏳");
     return;
   }
   const utterance = new SpeechSynthesisUtterance(text);
